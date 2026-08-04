@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Storage</title>
+</head>
+<body>
+    
+    <script>
+        const storage = window.localStorage;
+        // const storage = window.sessionStorage
+
+        // 寫入
+        storage.setItem("username", "Ben Chen");
+        storage.setItem("password", "a123456");
+        storage.setItem("email", "ben@gmail.com");
+
+        // 移除
+        // storage.removeItem("username");
+        // storage.removeItem("username");
+        // 清空
+        // storage.clear();
+
+        // 取出
+        console.log(storage.getItem("username"));
+        console.log(storage.getItem("password"));
+        console.log(storage.getItem("email"));
+
+        // 取出 key
+        console.log(storage.key(0));
+        console.log(storage.key(1));
+        console.log(storage.key(2));
+        // 由 .key() 取出對應的 value
+        console.log(storage.getItem(storage.key(0)));
+        // 有長度屬性，所以可以跑迴圈
+        console.log(storage.length);
+
+        // 遍歷 storage 1
+        for(let i = 0;i < storage.length;i++){
+            console.log(`${storage.key(i)} = ${storage.getItem(storage.key(i))}`);
+        }
+
+        console.log(Object.entries(storage));
+
+        // 遍歷 storage 2
+        Object.entries(storage).forEach(([key, value]) => {
+            // const [key, value] = v;
+            console.log(`${key} = ${value}`);
+        });
+        
+        
+        
+        
+        
+        
+        
+    </script>
+</body>
+</html>
