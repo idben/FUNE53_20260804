@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        #myInput{
+            width: 100%;
+            box-sizing: border-box;
+            font-size: 24px;
+            padding-left: 10px;
+        }
+        .todo{
+            font-size: 24px;
+
+            label{
+                user-select: none;
+            }
+        }
+    </style>
+    <title>webstorage 待辦事項</title>
+</head>
+<body>
+    <input type="text" id="myInput" autofocus>
+    <div class="todolist">
+        <div class="todo">
+            <input type="checkbox" id="todo1">
+            <label for="todo1">買雞蛋</label>
+        </div>
+    </div>
+
+    <script>
+        const todolist = document.querySelector(".todolist");
+        const myInput = document.querySelector("#myInput");
+
+        const localKey = "todo00003";
+        // 取出 localStorage 資料轉成陣列
+        let todoAry;
+        if(localStorage.getItem(localKey)){
+            todoAry = JSON.parse(localStorage.getItem(localKey));
+        }else{
+            // null
+            todoAry = []
+        }
+
+        // 增加待辦事項 (存入 localStorage)
+        myInput.addEventListener("keyup", e => {
+            if(e.key == "Enter" && e.ctrlKey){
+                console.log("增加待辦事項");
+                const t = new Date().getTime()
+                const tempObj = {};
+                tempObj.time = t;
+                tempObj.text = e.target.value;
+                todoAry.push(tempObj);
+                console.log(todoAry);
+                localStorage.setItem(localKey, JSON.stringify(todoAry))
+                e.target.value = "";
+            }
+        });
+
+        // 刪除待辦事項 (存入 localStorage)
+    </script>
+</body>
+</html>
