@@ -64,6 +64,14 @@
         });
 
         // 刪除待辦事項 (存入 localStorage)
+        // 事件代理
+        todolist.addEventListener("change", e => {
+            const t = parseInt(e.target.id.slice(4))
+            todoAry = todoAry.filter(todo => todo.time != t);
+            localStorage.setItem(localKey, JSON.stringify(todoAry));
+            const elementDel = e.target.closest(".todo");
+            elementDel?.remove();
+        });
 
 
         function setTodoItem(item){
