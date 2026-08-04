@@ -138,6 +138,10 @@
     let canShoot = true;
     let keysPressed = {};
     let planeEtimer;
+    const soundObj = {
+      "shoot": "./sounds/shoot.mp3",
+      "explo": "./sounds/explo.mp3"
+    }
 
     $(window).on("keydown", function (e) {
       keysPressed[e.which] = true;
@@ -174,6 +178,7 @@
               <img src="./images/bullet1.png" alt="">
             </div>`;
           $(".game").append(bt);
+          playSound("shoot");
           $(".game .bullet" + bn).css("left", x + "px");
           // $(".game .bullet" + bn).animate({
           //   bottom: "340px"
@@ -227,6 +232,7 @@
               $(this).remove();
             })
             score++;
+            playSound("explo"); 
           }
         });
       });
@@ -282,6 +288,14 @@
       } else {
         return false;
       }
+    }
+
+    function playSound(key){
+      const sound = new Audio(soundObj[key]);
+      sound.addEventListener("ended", event => {
+          event.target = null;
+      });
+      sound.play();
     }
   </script>
 </body>
