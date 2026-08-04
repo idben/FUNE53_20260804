@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        video {
+            width: 100%;
+        }
+    </style>
+    <title>Video 標籤的使用 3</title>
+</head>
+
+<body>
+    <video controls id="player"></video>
+    <button>開始播放</button>
+
+
+    <script>
+        const player = document.querySelector("#player");
+        const button = document.querySelector("button");
+
+        player.setAttribute("poster", "https://images.pexels.com/photos/38756218/pexels-photo-38756218.jpeg");
+
+        const playlist = [
+            "./videos/video1.mp4",
+            "./videos/video2.mp4",
+            "./videos/video3.mp4",
+            "./videos/video4.mp4"
+        ];
+
+        let playNum = 0;
+        
+
+        const playerListener = event => {
+            playNum++;
+            if(playNum >= playlist.length) playNum = 0;
+            player.src = playlist[playNum];
+            player.play();
+        };
+
+        player.addEventListener("ended", playerListener);
+
+        button.addEventListener("click", e => {
+            e.target.disabled = true;
+            player.src = playlist[playNum];
+            player.play();
+        });
+    </script>
+</body>
+
+</html>
