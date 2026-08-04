@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        ul li {
+            list-style: none;
+            padding: 8px 16px;
+            margin: 4px;
+            background-color: #f0f0f0;
+            border: 1px solid #ddd;
+            cursor: move;
+        }
+
+        ul li.dragging {
+            opacity: 0.5;
+        }
+    </style>
+    <title>拖曳排序</title>
+</head>
+
+<body>
+    <ul id="sortableList">
+        <li draggable="true">項目 1</li>
+        <li draggable="true">項目 2</li>
+        <li draggable="true">項目 3</li>
+        <li draggable="true">項目 4</li>
+    </ul>
+
+    <script>
+        let dragedItem = null;
+
+        document.querySelectorAll("#sortableList li").forEach(item => {
+            // 開始拖曳
+            item.addEventListener("dragstart", e => {
+                dragedItem = item;
+                item.classList.add("dragging");
+            });
+
+            // 結束拖曳(變回不透明)
+            item.addEventListener("dragend", e => {
+                item.classList.remove("dragging");
+            });
+
+            // 設定成可以拖曳上去
+            item.addEventListener("dragover", e => {
+                e.preventDefault();
+            });
+
+            // 放開的當下
+            item.addEventListener("drop", e => {
+                if(item != dragedItem){
+                    // 找索引
+                    // 先找上層
+                    const papa = dragedItem.parentNode;
+                    // 被拖曳的索引
+                    const dragedIndex = [...papa.children].indexOf(dragedItem);
+                    // 放開的索引
+                    const dropIndex = [...papa.children].indexOf(e.target);
+                    console.log({dragedIndex, dropIndex});
+                    if(dragedIndex > dropIndex){
+                        // 往前拖曳往前放
+                        papa.insertBefore(dragedItem, e.target);
+                    }else{
+                        // 往後拖曳往後放
+                        papa.insertBefore(dragedItem, e.target.nextSibling);
+                    }
+                    
+                }else{
+                    console.log("在自己身上放開");
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>
