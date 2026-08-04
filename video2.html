@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        video {
+            width: 100%;
+        }
+    </style>
+    <title>Video 標籤的使用 2</title>
+</head>
+
+<body>
+    <video id="player"></video>
+    <div class="btns">
+        <button id="video1">影片 1</button>
+        <button id="video2">影片 2</button>
+        <button id="video3">影片 3</button>
+        <button id="video4">影片 4</button>
+        <button id="control">控制</button>
+    </div>
+    <input type="range" name="" id="">
+
+    <script>
+        const player = document.querySelector("#player");
+        const btns = document.querySelector(".btns");
+
+        player.setAttribute("poster", "https://images.pexels.com/photos/38756218/pexels-photo-38756218.jpeg");
+        
+        // 事件代理的寫法
+        btns.addEventListener("click", e => {
+            if(e.target.tagName != "BUTTON") return;
+            console.log(e.target.id);
+            switch(e.target.id){
+                case "video1":
+                    player.src = "./videos/video1.mp4";
+                    player.play();
+                    break;
+                case "video2":
+                    player.src = "./videos/video2.mp4";
+                    player.play();
+                    break;
+                case "video3":
+                    player.src = "./videos/video3.mp4";
+                    player.play();
+                    break;
+                case "video4":
+                    player.src = "./videos/video4.mp4";
+                    player.play();
+                    break;
+                default:
+                    // control
+                    // 條件運算子的寫法
+                    player.paused ? player.play() : player.pause(); 
+            }
+        });
+
+        // player.muted = true; // 控制播放器是否靜音
+        const playerListener = event => {
+            // console.log(event.type); // 事件名稱, 按順序是 loadedmetadata/timeupdate/ended
+            // console.log(event.target.duration); // 影片總長度
+            // console.log(event.target.currentTime); // 當片影片的時間(播放頭)
+            // console.log(event.target.volume); // 播放器中的聲音
+            // console.log(event.target.muted); // 播放器是否靜音
+            // console.log(event.target.paused); // 是否暫停
+        };
+
+        player.addEventListener("loadedmetadata", playerListener);
+        player.addEventListener("timeupdate", playerListener);
+        player.addEventListener("ended", playerListener);
+    </script>
+</body>
+
+</html>
