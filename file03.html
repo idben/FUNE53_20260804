@@ -27,7 +27,7 @@
             <input type="text" class="form-control border border-primary text-primary" value="未選擇任何檔案">
             <button class="btn btn-primary">選擇一個檔案</button>
         </div>
-        <div class="img"></div>
+        <dudio controls id="player"></dudio>
     </div>
 
     <input type="file" name="file1" class="d-none">
@@ -39,19 +39,18 @@
         const btnSelectFile = document.querySelector(".group1 button");
         const file1 = document.querySelector("[name=file1]");
         const inputGroup1 = document.querySelector(".group1 input");
-        const img = document.querySelector(".img");
+        const player = document.querySelector("#player");
 
         btnSelectFile.addEventListener("click", () => file1.click());
 
         file1.addEventListener("change", e => {
+
             const file = e.target.files[0];
             inputGroup1.value = file.name;
             const reader = new FileReader();
             reader.addEventListener("load", (e) => {
-                const image = new Image();
-                image.src = e.target.result;
-                img.innerHTML = "";
-                img.append(image)
+                player.src = e.target.result;
+                player.play();
             });
 
             reader.readAsDataURL(file);
