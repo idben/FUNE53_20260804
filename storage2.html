@@ -23,10 +23,10 @@
 <body>
     <input type="text" id="myInput" autofocus>
     <div class="todolist">
-        <div class="todo">
+        <!-- <div class="todo">
             <input type="checkbox" id="todo1">
             <label for="todo1">買雞蛋</label>
-        </div>
+        </div> -->
     </div>
 
     <script>
@@ -42,6 +42,9 @@
             // null
             todoAry = []
         }
+        // 繪製 todo 元件
+        todoAry.forEach(todo => setTodoItem(todo));
+        
 
         // 增加待辦事項 (存入 localStorage)
         myInput.addEventListener("keyup", e => {
@@ -54,11 +57,22 @@
                 todoAry.push(tempObj);
                 console.log(todoAry);
                 localStorage.setItem(localKey, JSON.stringify(todoAry))
+                // 繪製 todo 元件
+                setTodoItem(tempObj)
                 e.target.value = "";
             }
         });
 
         // 刪除待辦事項 (存入 localStorage)
+
+
+        function setTodoItem(item){
+            const node = document.createElement("div");
+            node.className = "todo";
+            node.innerHTML = `<input type="checkbox" id="todo${item.time}">
+                              <label for="todo${item.time}">${item.text}</label>`;
+            todolist.append(node)
+        }
     </script>
 </body>
 </html>
